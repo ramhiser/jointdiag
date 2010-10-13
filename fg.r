@@ -20,6 +20,10 @@ f_algorithm <- function(A.list, B = diag(p), p, epsilon.f = 0.0001, max.iteratio
 	# Step F_0 and F_1: Initial approximation to the orthogonal matrix minimizing the "deviation from diagonality" metric.
 	#	By default, the initial approximation is the p x p identity matrix.
 	current.B <- B
+	
+	# TODO: Because these each have the product of the determinants of A.i in the numerator,
+	#	there is no need to recompute these during each iteration of the F-algorithm.
+	#	Store this to save computation.
 	previous.phi <- prod(laply(A.list, function(A.i) {
 		#diagonal.dev(t(current.B) %*% A.i %*% current.B)
 		diagonal.dev(A.i, B)
