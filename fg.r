@@ -16,7 +16,7 @@ fg <- function(mat.list, initial.B = diag(p), p, epsilon.f = 0.0001, epsilon.g =
 # Performs the F-algorithm as given in the Flury and Gautschi (1986) paper.
 # Each iteration of the F-algorithm requires the G-algorithm.
 f_algorithm <- function(A.list, B = diag(p), p, epsilon.f = 0.0001, max.iterations = 1000, norm = 2, verbose = FALSE) {
-	k <- length(T.list)
+	k <- length(A.list)
 	# Step F_0 and F_1: Initial approximation to the orthogonal matrix minimizing the "deviation from diagonality" metric.
 	#	By default, the initial approximation is the p x p identity matrix.
 	current.B <- B
@@ -49,6 +49,7 @@ f_algorithm <- function(A.list, B = diag(p), p, epsilon.f = 0.0001, max.iteratio
 			#	The resulting T_i are positive definite symmetric.
 			H <- cbind(b.l, b.j)	
 			T.list <- compute.T.list(A.list, b.l, b.j)
+			cat("yes!\n")
 			
 			# Step F_22: Perform the G-algorithm on (T_1, ..., T_k) to get an orthogonal 2 x 2 matrix Q.
 			#	The resulting T_i are positive definite symmetric.
