@@ -49,7 +49,6 @@ f_algorithm <- function(A.list, B = diag(p), p, epsilon.f = 0.0001, max.iteratio
 			#	The resulting T_i are positive definite symmetric.
 			H <- cbind(b.l, b.j)	
 			T.list <- compute.T.list(A.list, b.l, b.j)
-			cat("yes!\n")
 			
 			# Step F_22: Perform the G-algorithm on (T_1, ..., T_k) to get an orthogonal 2 x 2 matrix Q.
 			#	The resulting T_i are positive definite symmetric.
@@ -78,8 +77,8 @@ f_algorithm <- function(A.list, B = diag(p), p, epsilon.f = 0.0001, max.iteratio
 		diff.dev.diag <- previous.phi - phi
 		
 		if(verbose) {
-			cat("B\n")
-			print(B)
+			#cat("B\n")
+			#print(B)
 			cat("\nIteration", current.iteration, "of F-algorithm with current deviation measure", previous.phi, "\n")
 			cat("Difference between deviation measures:", diff.dev.diag, "\n\n")
 		}
