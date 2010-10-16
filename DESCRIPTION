@@ -1,0 +1,10 @@
+Package: jointdiag
+Title: Simultaneous Diagonalization Algorithms of Positive Definite Symmetric Matrices
+Version: 0.01
+Date: 2010-10-16
+Author: John A. Ramey
+Maintainer: John A. Ramey <johnramey@gmail.com>
+Description: This package contains algorithms to jointly (simultaneously) diagonalize positive definite symmetric matrices.
+Depends: plyr
+License: GPL-2
+URL: http://www.github.com/ramey/jointdiag, http://www.ramhiser.com/projects/
