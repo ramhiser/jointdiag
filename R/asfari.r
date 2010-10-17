@@ -1,5 +1,12 @@
 library(plyr)
 
+# I added this function, which is in the base package of R.
+# It is not found on the Kodiak server for some reason.
+norm <- function (x, type = c("O", "I", "F", "M")) 
+{
+    .Call("La_dlange", x, type, PACKAGE = "base")
+}
+
 ############## DIAGONALIZATION FUNCTION CODE #######
 LUJID <-function(X,mode='B', ERR=1*10^-5, RBALANCE=3, ITER=200){
 #LU based Jacbi-like JD; This function minimizes the cost 
