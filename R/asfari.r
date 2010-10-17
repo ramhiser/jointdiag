@@ -2,9 +2,10 @@ library(plyr)
 
 # I added this function, which is in the base package of R.
 # It is not found on the Kodiak server for some reason.
+# We are using the Frobenius, so the code only performs the Frobenius norm.
 norm <- function (x, type = c("O", "I", "F", "M")) 
 {
-    .Call("La_dlange", x, type, PACKAGE = "base")
+	sqrt(sum(diag(crossprod(x))))
 }
 
 ############## DIAGONALIZATION FUNCTION CODE #######
