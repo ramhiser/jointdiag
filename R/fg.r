@@ -133,7 +133,7 @@ g_algorithm <- function(T.list, Q = diag(2), weights = rep(1, k), epsilon.g = 0.
 		Q <- eigen(T)$vectors
 		
 		# We compute the matrix norm of the difference of the Q from the current step and the previous step.
-		matrix.norm <- pnorm(current.Q - Q, norm)
+		matrix.norm <- p.norm(current.Q - Q, norm)
 		
 		if(verbose) {
 			cat("Q\n")
@@ -199,6 +199,6 @@ diagonal.dev <- function(A.i, B) {
 
 # This computes the p-norm of a matrix, x.
 # By default, we use the 2-norm (Euclidean norm).
-pnorm <- function(x, p = 2) {
+p.norm <- function(x, p = 2) {
 	sum(x^p)^(1/p)
 }
