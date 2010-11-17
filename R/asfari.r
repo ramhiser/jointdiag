@@ -1,4 +1,5 @@
 library(plyr)
+library(MASS)
 
 # I added this function, which is in the base package of R.
 # It is not found on the Kodiak server for some reason.
@@ -181,7 +182,14 @@ err=ERR*n+1
       J=0
 	  BB=array(BB,c(n,n,k))
       BB[,,k]=B
-      Binv=solve(B)
+
+	  # If B is singular, we use the Moore-Penrose pseudo inverse instead.
+      Binv <- try(solve(B), silent = TRUE)
+	  if(!is.matrix(Binv)) {
+	      Binv <- ginv(B)
+	  }
+
+
       for (t in 1:N){
 	     cols <- seq(((t-1)*n+1),t*n)
 	     J=J+norm(X1[,cols]-Binv%*%diag(diag(X[,cols]))%*%Binv,"f")^2
