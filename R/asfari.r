@@ -10,7 +10,7 @@ norm <- function (x, type = c("O", "I", "F", "M"))
 }
 
 ############## DIAGONALIZATION FUNCTION CODE #######
-LUJID <-function(X,mode='B', ERR=1*10^-5, RBALANCE=3, ITER=200){
+LUJID <-function(X,mode='B', ERR=1*10^-5, RBALANCE=3, ITER=200, pseudo = TRUE, shrink.param = 0.01){
 #LU based Jacbi-like JD; This function minimizes the cost 
 #J_{1}(B)=\sum{i=1}^{N} \|BC_{i}B^{T}-diag(BC_{i}B^{T})\|_{F}^{2}
 #where \{C_{i}\}_{i=1}^{N} is a set of N, n\times n symmetric matrices 
@@ -183,10 +183,18 @@ err=ERR*n+1
 	  BB=array(BB,c(n,n,k))
       BB[,,k]=B
 
-	  # If B is singular, we use the Moore-Penrose pseudo inverse instead.
+	  # If B is singular, we provide the user with two options to invert the matrix:
+	  #		1) Use the Moore-Penrose pseudo inverse instead.
+	  #		2) Invert B with the shrunken eigenvalues of B with a small shrinkage factor.
       Binv <- try(solve(B), silent = TRUE)
 	  if(!is.matrix(Binv)) {
-	      Binv <- ginv(B)
+	  	if(pseudo == TRUE) {
+			Binv <- ginv(B)
+		} else {
+			B.eigen <- eigen(B, symmetric = TRUE)
+			identity.shrink <- diag(B.eigen$values) + shrink.param * diag(length(B.eigen$vectors))
+			Binv <- solve(B.eigen$vectors %*% identity.shrink %*% t(B.eigen$vectors))
+		}
 	  }
 
 
