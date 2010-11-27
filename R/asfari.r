@@ -219,10 +219,14 @@ return(B)
 # The simultaneous diagonalization transformation matrix computed
 # with the Asfari method requires that the covariance matrices
 # are horizontally concatenated.
-asfari.cov <- function(df) {
+asfari.cov <- function(df, shrink = FALSE, shrink.param = 0.01) {
+	if(shrink == FALSE) {
+		shrink.param <- 0
+	}
 	covs <- dlply(df, .(labels), function(class.df) {
 		n.k <- nrow(class.df)
-		(n.k - 1) * cov(class.df[,-1]) / n.k
+		p <- ncol(class.df) - 1
+		(1 - shrink.param) * (n.k - 1) * cov(class.df[,-1]) / n.k + shrink.param * diag(p)
 	})
 	covs.cbind <- do.call("cbind", covs)
 	dimnames(covs.cbind) <- NULL
